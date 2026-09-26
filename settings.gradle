@@ -1,0 +1,6 @@
+rootProject.name = "simply-connect-jvm"
+
+include("simply-connect-java")
+include("simply-connect-spring-boot-starter")
+include("examples:spring-boot-java")
+

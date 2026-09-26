@@ -1,0 +1,38 @@
+{
+  "properties": [
+    {
+      "name": "simply-connect.api-key",
+      "type": "java.lang.String",
+      "description": "Secret External API key. Prefer an environment variable and never commit it."
+    },
+    {
+      "name": "simply-connect.base-url",
+      "type": "java.lang.String",
+      "defaultValue": "https://api.simply-connect.ovh",
+      "description": "Simply Connect API server root URL."
+    },
+    {
+      "name": "simply-connect.default-sms-endpoint-id",
+      "type": "java.util.UUID",
+      "description": "Optional default endpoint used by convenience SMS methods."
+    },
+    {
+      "name": "simply-connect.panel.enabled",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "description": "Enables the embedded developer panel. Keep disabled in public production environments unless explicitly required."
+    },
+    {
+      "name": "simply-connect.panel.path",
+      "type": "java.lang.String",
+      "defaultValue": "/simply-connect",
+      "description": "Application-relative path of the developer panel."
+    },
+    {
+      "name": "simply-connect.panel.password",
+      "type": "java.lang.String",
+      "description": "Separate password for the developer panel; at least 12 characters and never equal to the API key."
+    }
+  ]
+}
+

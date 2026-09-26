@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: simply-connect-jvm-example
+
+simply-connect:
+  api-key: ${SIMPLY_CONNECT_API_KEY:}
+  default-sms-endpoint-id: ${SIMPLY_CONNECT_SMS_ENDPOINT_ID:}
+  panel:
+    enabled: ${SIMPLY_CONNECT_PANEL_ENABLED:false}
+    path: /simply-connect
+    password: ${SIMPLY_CONNECT_PANEL_PASSWORD:}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: demo
+
+simply-connect:
+  base-url: http://127.0.0.1:8080/mock
+  api-key: demo-api-key
+  default-sms-endpoint-id: 01994f44-755a-7d10-bb59-597ac6123d50
+  panel:
+    enabled: true
+    password: simply-connect-demo
+

@@ -1,0 +1,52 @@
+plugins {
+    id "base"
+    id "maven-publish"
+}
+
+def jitPackBuild = System.getenv("JITPACK") == "true"
+
+group = jitPackBuild
+    ? "${System.getenv("GROUP")}.${System.getenv("ARTIFACT")}"
+    : "ovh.simplyconnect"
+version = jitPackBuild
+    ? System.getenv("VERSION")
+    : providers.gradleProperty("version").getOrElse("0.1.0-SNAPSHOT")
+
+ext {
+    jacksonVersion = "2.22.3"
+    junitVersion = "5.14.1"
+    springBootVersion = providers.gradleProperty("springBootVersion").getOrElse("3.5.16")
+}
+
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        mavenCentral()
+    }
+
+    plugins.withId("java") {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(17)
+            }
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        tasks.withType(JavaCompile).configureEach {
+            options.encoding = "UTF-8"
+            options.release = 17
+            options.compilerArgs += ["-parameters", "-Xlint:all"]
+        }
+
+        tasks.withType(Test).configureEach {
+            useJUnitPlatform()
+            testLogging {
+                events "failed", "skipped"
+                exceptionFormat "full"
+            }
+        }
+    }
+}

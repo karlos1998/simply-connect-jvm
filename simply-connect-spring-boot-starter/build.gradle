@@ -1,0 +1,58 @@
+plugins {
+    id "java-library"
+    id "maven-publish"
+}
+
+description = "Spring Boot starter with an optional Simply Connect developer panel"
+
+dependencies {
+    api project(":simply-connect-java")
+    api platform("org.springframework.boot:spring-boot-dependencies:${rootProject.springBootVersion}")
+    api "org.springframework.boot:spring-boot-starter-web"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${rootProject.springBootVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation platform("org.junit:junit-bom:${rootProject.junitVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/karlos1998/simply-connect-jvm")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = "Simply Connect Spring Boot Starter"
+                description = project.description
+                url = "https://github.com/karlos1998/simply-connect-jvm"
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "https://opensource.org/licenses/MIT"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "karlos1998"
+                        name = "Karol Sojka"
+                    }
+                }
+                scm {
+                    url = "https://github.com/karlos1998/simply-connect-jvm"
+                    connection = "scm:git:https://github.com/karlos1998/simply-connect-jvm.git"
+                }
+            }
+        }
+    }
+}
